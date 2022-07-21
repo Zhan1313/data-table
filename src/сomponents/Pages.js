@@ -35,8 +35,6 @@ const PagesStyle = styled.div`
 `
 
 const PageList = styled.span`
-    border-radius: 100%;
-    border: 1px solid grey;
     width: 40px;
     height: 40px;
     display: flex;
@@ -52,7 +50,6 @@ const PageList = styled.span`
 `
 
 const CurrentPage = styled(PageList)`
-    background-color: grey;
+    background-color: blue;
     color: white;
-    font-size: bold;
 `

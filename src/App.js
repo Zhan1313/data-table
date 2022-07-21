@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { fetchGoods } from './actions/fetchGoods'
+import { fetchGoods } from './api/fetchGoods'
 import {TableFilter} from './сomponents/TableFilter'
 import {Pages} from './сomponents/Pages'
 
@@ -58,7 +58,7 @@ const AppStyles = styled.div`
         th {
             font-size: 20px;
             padding: 10px;
-            background-color: grey;
+            background-color: darkolivegreen;
             color: white;
             cursor: pointer;
             border: 0.5px solid white;
@@ -73,7 +73,7 @@ const AppStyles = styled.div`
                 border-left: none
             }
             :hover {
-                background-color: #ff5959;
+                background-color: deepskyblue;
             }
         }
         td {
