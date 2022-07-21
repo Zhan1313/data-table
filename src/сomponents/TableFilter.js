@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Table } from '../components'
+import { Table } from './Table'
 
 export const TableFilter = () => {
 
@@ -9,7 +9,7 @@ export const TableFilter = () => {
     const perPage = useSelector(state => state.goods.perPage)
 
     const [ column, setColumn ] = useState('name')
-    const [ condition, setСondition ] = useState('=')
+    const [ condition, setCondition ] = useState('=')
     const [ inputValue, setInputValue ] = useState('')
 
     const handleInputChange = e => {
@@ -23,7 +23,7 @@ export const TableFilter = () => {
         }
 
         if(column === 'count') {
-            if(searchValue.length === 0) {
+            if (searchValue.length === 0) {
                 return data
             }
             if(condition === '=') {
@@ -72,7 +72,7 @@ export const TableFilter = () => {
                     <option value="count">count</option>
                     <option value="distance">distance</option>
                 </select>
-                <select value={condition} onChange={e => setСondition(e.target.value)} className="table-select">
+                <select value={condition} onChange={e => setCondition(e.target.value)} className="table-select">
                     <option value="=">equal</option>
                     <option value="<">less</option>
                     <option value=">">more</option>

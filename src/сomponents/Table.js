@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DateConverter } from '../utils'
+import { DateConverter } from '../utils/DateConverter'
 
 export const Table = ({ visibleItems }) => {
 

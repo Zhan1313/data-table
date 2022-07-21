@@ -1,66 +1,92 @@
-import React from "react";
-import './App.css';
-import { Table } from "./Components/Table/Table";
-import {useState} from "react";
-import Paginator from "./Components/Table/Paginator";
-import _ from 'lodash'
-import TableSearch from "./Components/Table/TableSearch";
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
+import { fetchGoods } from './actions/fetchGoods'
+import {TableFilter} from './сomponents/TableFilter'
+import {Pages} from './сomponents/Pages'
 
+export const App = () => {
 
-class App extends React.Component {
-    state = {
-        data: [],
-        sortDirection: 'asc', // desc
-        sortField: 'name',
-        searchText: '',
-        currentPage: 0
-    }
-    fetchData = someData => {
-        this.setState({data: someData})
-    }
+    const dispatch = useDispatch()
 
-    onSort = sortField => {
-        //console.log(sortField)
-        const clonedData = this.state.data.concat();
-        const sortType = this.state.sortDirection === 'asc' ? 'desc' : 'asc'
+    useEffect(() => {
+        dispatch(fetchGoods())
+    }, [dispatch])
 
-        const orderedData = _.orderBy(clonedData, sortField, sortType)
-        this.setState({data: orderedData, sortDirection: sortType, sortField});
-    }
-
-    searchHandler = searchText => {
-        console.log(searchText)
-        this.setState({searchText, currentPage: 0});
-    }
-
-    getFilteredData() {
-        const {data, searchText} = this.state;
-        if (!searchText) {
-            return data;
-        }
-        return data.filter(item => {
-            return item['name'].toLowerCase().includes(searchText.toLowerCase())
-
-        })
-    }
-
-    render() {
-        const filteredData = this.getFilteredData();
-        console.log('renderApp')
-        const dataTest = [{id: 1, date: '12.07.1998', title: 'Almaty', quantity: 3, distance: 32},
-            {id: 2, date: '12.07.1998', title: 'Taraz', quantity: 11, distance: 333},
-            {id: 3, date: '12.07.1998', title: 'Oral', quantity: 5, distance: 444}]
-
-        return (
-            <div className="container">
-                <TableSearch onSearch={this.searchHandler}/>
-                <Table data={filteredData} onSort={this.onSort}/>
-                <Paginator totalItemsCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
-                           currentPage={this.props.currentPage} onPageChanged={this.props.onPageChanged}/>
-                <button onClick={() => this.fetchData(dataTest)}>Fetch</button>
-            </div>
-        );
-    }
+    return (
+        <AppStyles>
+            <TableFilter/>
+            <Pages/>
+        </AppStyles>
+    )
 }
 
-export default App;
+const AppStyles = styled.div`
+    * { 
+        box-sizing: border-box;
+    }
+    margin: 0 auto;
+    width: 1200px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .options {
+        select {
+            height: 40px;
+            width: 100px;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 20px;
+            background-color: rgba(238, 250, 255, 0.3);
+            font-size: 14px;
+        }
+        input {
+            height: 40px;
+            width: 190px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid black;
+            background-color: rgba(238, 250, 255, 0.3);
+        }
+    }
+    table {
+        margin-top: 20px;
+        width: 800px;
+        border-spacing: 0;
+        th {
+            font-size: 20px;
+            padding: 10px;
+            background-color: grey;
+            color: white;
+            cursor: pointer;
+            border: 0.5px solid white;
+            transition: 0.2s ease;
+            :last-child {
+                border-right: none
+            }
+            :nth-child(2) {
+                width: 220px;
+            }
+            :first-child {
+                border-left: none
+            }
+            :hover {
+                background-color: #ff5959;
+            }
+        }
+        td {
+            height: 40px;
+            border-bottom: 0.5px solid black;
+            border-right: 0.5px solid black;
+            :last-child {
+                border-right: 0.5px solid black;
+            }
+            :first-child {
+                border-left: 0.5px solid black;
+            }
+            text-align: center;
+        }
+    }
+`

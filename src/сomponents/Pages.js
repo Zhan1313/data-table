@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPages } from '../utils'
-import { setCurrentPage } from '../redux/goods'
+import { createPages } from '../utils/pagesCreator'
+import { setCurrentPage } from '../redux/goods-reducer'
 
 export const Pages = () => {
 
